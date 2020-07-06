@@ -1,15 +1,17 @@
-IMAGE_NAME := blang/latex:ubuntu
-
-.PHONY: default
-default:
+.PHONY: build
+build:
+	@docker build -t latex-resume:latest .
 	@docker run \
-		--rm -i \
+		-i \
+		-v `pwd`/src:/data/src \
+		-v `pwd`/gen:/data/output \
+		--rm \
 		--user="`id -u`:`id -g`" \
 		--net=none \
-		-v `pwd`:/data \
-		"$(IMAGE_NAME)" \
-		latexmk -cd -f -interaction=batchmode -pdf ./src/resume.tex
+		latex-resume:latest \
+		latexmk -cd -f -interaction=batchmode -pdf -outdir=/data/output /data/src/resume.tex
+	@find ./gen -type f ! -name '*.pdf' -delete
 
-.PHONY: upload
-upload:
-	aws s3 cp ./dist/resume.pdf s3://rahuldhir.com/files/resume.pdf
+.PHONY: deploy
+deploy:
+	aws s3 cp ./gen/resume.pdf s3://rahuldhir.com/files/resume.pdf

@@ -10,7 +10,7 @@
 \RequirePackage[T1]{fontenc}                    % better glyphs
 \RequirePackage{nopageno}                       % Remove page numbering.
 \RequirePackage{tgpagella}                      % Palatino
-\RequirePackage[sfdefault]{classico}            % Free clone of Optima.
+\RequirePackage[sfdefault]{classico}
 \RequirePackage{inconsolata}
 \RequirePackage{adjustbox}                      % getting tables to fit.
 \RequirePackage{enumitem}
